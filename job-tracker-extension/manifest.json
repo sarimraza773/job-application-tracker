@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Job Application Tracker",
+  "version": "1.0.0",
+  "description": "Track job applications and auto-detect job title and company from application pages.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_title": "Job Tracker",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
