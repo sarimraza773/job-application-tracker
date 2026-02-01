@@ -13,7 +13,10 @@
         <button id="detectBtn">Detect from this tab</button>
         <div class="row">
           <input id="jobTitle" placeholder="Job title" />
+        </div>
+        <div class="row">
           <input id="company" placeholder="Company" />
+          <input id="location" placeholder="Location" />
         </div>
         <div class="row">
           <button id="addBtn">Add as Pending</button>
@@ -31,6 +34,19 @@
       </div>
 
       <div id="list"></div>
+
+      <div class="settings">
+        <button id="settingsToggle" class="small">AI Settings</button>
+        <div id="settingsPanel" style="display:none; margin-top:8px;">
+          <div class="row">
+            <input id="aiEndpoint" placeholder="AI endpoint (https://<subdomain>.workers.dev/extract)" />
+          </div>
+          <div class="row">
+            <button id="saveEndpoint" class="small">Save</button>
+          </div>
+          <p class="hint">If set, AI will be used when detection confidence is low.</p>
+        </div>
+      </div>
     </div>
 
     <script src="popup.js"></script>

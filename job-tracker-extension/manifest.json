@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Job Application Tracker",
   "version": "1.0.0",
-  "description": "Track job applications and auto-detect job title and company from application pages.",
+  "description": "Track job applications and auto‑detect job title and company from application pages.",
   "permissions": [
     "storage",
     "tabs",

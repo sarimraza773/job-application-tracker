@@ -24,6 +24,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         id: crypto.randomUUID(),
         jobTitle: msg.payload.jobTitle || "Unknown role",
         company: msg.payload.company || "Unknown company",
+        location: msg.payload.location || "",
         status: "pending",
         url: msg.payload.url || "",
         createdAt: new Date().toISOString(),
@@ -44,6 +45,23 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       sendResponse({ ok: true });
       return;
     }
+
+    if (msg.type === "UPDATE_FIELDS") {
+      const applications = await getApplications();
+      const idx = applications.findIndex(a => a.id === msg.payload.id);
+      if (idx >= 0) {
+        applications[idx].jobTitle =
+          msg.payload.jobTitle ?? applications[idx].jobTitle;
+        applications[idx].company =
+          msg.payload.company ?? applications[idx].company;
+        applications[idx].location =
+          msg.payload.location ?? applications[idx].location;
+        await saveApplications(applications);
+      }
+      sendResponse({ ok: true });
+      return;
+    }
+
     if (msg.type === "DELETE_APPLICATION") {
       const applications = await getApplications();
       const next = applications.filter(a => a.id !== msg.payload.id);

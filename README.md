@@ -1,13 +1,14 @@
 # job-application-tracker
 
-This repository contains a Chrome extension and optional Cloudflare Worker backend that helps you track your job applications.
+This repository contains a Chrome extension (MV3) and an optional Cloudflare Worker backend that helps you track your job applications.
 
 ## Chrome extension
 
 The extension lives in the `job-tracker-extension/` folder. It allows you to:
 
-- Detect job titles and company names on most job application pages.
-- Add applications to a local list and track their status (pending, interview, rejected).
+- Auto-detect **job title**, **company**, and **location** (best-effort) from the current tab.
+- Add applications to a local list and track their status (**pending**, **interview**, **rejected**).
+- Edit saved entries (job title, company, location) any time.
 - View, filter, and update your applications via the popup UI.
 
 To install the extension in Chrome:
@@ -18,7 +19,20 @@ To install the extension in Chrome:
 
 ## Optional AI backend
 
-The `ai-backend-cloudflare-worker/` folder contains an example Cloudflare Worker that you can deploy to enhance extraction when the heuristic extraction fails. It requires an OpenAI API key set via a Wrangler secret (`OPENAI_API_KEY`). Deploy it using [Wrangler](https://developers.cloudflare.com/workers/wrangler/) and configure the endpoint in the extension settings.
+The `ai-backend-cloudflare-worker/` folder contains a Cloudflare Worker example that can call the OpenAI API to extract structured fields when heuristic extraction fails.
+
+### Deploy
+
+1. Install Wrangler
+2. From `ai-backend-cloudflare-worker/`:
+
+```bash
+wrangler login
+wrangler secret put OPENAI_API_KEY
+wrangler deploy
+```
+
+The worker exposes `POST /extract`.
 
 ## Development
 
