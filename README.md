@@ -1,39 +1,82 @@
-# job-application-tracker
+# Job Application Tracker (Chrome Extension)
 
-This repository contains a Chrome extension (MV3) and an optional Cloudflare Worker backend that helps you track your job applications.
+A Chrome extension to track job applications with **auto-detection** (job title, company, location), **follow-up reminders**, **CSV export**, and **weekly stats**.
 
-## Chrome extension
+## What you get
 
-The extension lives in the `job-tracker-extension/` folder. It allows you to:
+- Auto-detect job information on most job pages (JSON-LD + heuristics)
+- Optional AI fallback (your Cloudflare Worker) when detection is low confidence
+- Track statuses: `pending`, `interview`, `rejected`
+- Add follow-up dates and get Chrome notification reminders
+- Export all applications to CSV
+- See last 8 weeks application activity chart
 
-- Auto-detect **job title**, **company**, and **location** (best-effort) from the current tab.
-- Add applications to a local list and track their status (**pending**, **interview**, **rejected**).
-- Edit saved entries (job title, company, location) any time.
-- View, filter, and update your applications via the popup UI.
+---
 
-To install the extension in Chrome:
+## Install the extension locally
 
-1. Enable Developer mode in `chrome://extensions`.
-2. Click **Load unpacked** and select the `job-tracker-extension` directory.
-3. Navigate to a job posting, open the extension, click **Detect from this tab**, and add the application.
+1. Open Chrome → `chrome://extensions`
+2. Enable **Developer mode**
+3. Click **Load unpacked**
+4. Select the folder: `job-tracker-extension/`
 
-## Optional AI backend
+Use the popup to Detect → Add → manage your list.
 
-The `ai-backend-cloudflare-worker/` folder contains a Cloudflare Worker example that can call the OpenAI API to extract structured fields when heuristic extraction fails.
+---
+
+## Enable AI fallback (optional)
+
+If you want better extraction on tricky ATS pages, deploy the Cloudflare Worker.
 
 ### Deploy
 
-1. Install Wrangler
-2. From `ai-backend-cloudflare-worker/`:
+From `ai-backend-cloudflare-worker/`:
 
-```bash
+```powershell
 wrangler login
 wrangler secret put OPENAI_API_KEY
 wrangler deploy
 ```
 
-The worker exposes `POST /extract`.
+Wrangler prints a URL like:
 
-## Development
+- `https://job-tracker-ai.<your-subdomain>.workers.dev`
 
-This project is provided as an example and is not published to the Chrome Web Store. Feel free to modify the selectors in `content.js` or add adapters for specific job boards.
+Your endpoint is:
+
+- `https://job-tracker-ai.<your-subdomain>.workers.dev/extract`
+
+### Connect it
+
+Open the extension **Settings** page and paste the endpoint into **AI endpoint**.
+
+---
+
+## Follow-up reminders
+
+- Add a follow-up date when you create/edit an application.
+- The extension checks periodically (about every 6 hours) and notifies you if follow-ups are due within your configured look-ahead window.
+
+---
+
+## Chrome Web Store prep checklist
+
+- Update `version` in `job-tracker-extension/manifest.json`
+- Add store listing assets:
+  - 1280×800 screenshots
+  - 16/48/128 icon (included)
+- Provide a privacy policy (see `PRIVACY.md`)
+- Test permissions justification:
+  - `tabs` (open job links, read active tab)
+  - `storage` (save your list locally)
+  - `downloads` (CSV export)
+  - `alarms` + `notifications` (follow-up reminders)
+  - `host_permissions` `<all_urls>` (detect job pages)
+
+---
+
+## Development notes
+
+- The extension stores everything in `chrome.storage.local`.
+- No data is sent anywhere unless you configure the AI endpoint.
+

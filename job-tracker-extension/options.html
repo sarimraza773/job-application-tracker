@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Job Tracker Settings</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="wrap">
+    <h1>Settings</h1>
+
+    <div class="card">
+      <h2>AI Extraction</h2>
+      <p class="sub">Optional. If set, the extension will call your Cloudflare Worker when detection is low confidence.</p>
+      <label>AI endpoint (ends with <code>/extract</code>)</label>
+      <input id="aiEndpoint" placeholder="https://job-tracker-ai.<subdomain>.workers.dev/extract" />
+      <button id="saveAi">Save</button>
+    </div>
+
+    <div class="card">
+      <h2>Follow-up Reminders</h2>
+      <label class="row">
+        <input type="checkbox" id="remindersEnabled" />
+        <span>Enable reminders (Chrome notifications)</span>
+      </label>
+      <label>Look-ahead window (hours)</label>
+      <input id="lookahead" type="number" min="1" max="168" />
+      <button id="saveRem">Save</button>
+      <p class="sub">Reminders run about every 6 hours and notify you about pending applications with follow-ups due soon.</p>
+    </div>
+
+    <div class="card">
+      <h2>Chrome Web Store checklist</h2>
+      <ul>
+        <li>Update version in <code>manifest.json</code> when you release changes.</li>
+        <li>Add a <code>PRIVACY.md</code> and include it in your Store listing.</li>
+        <li>Use screenshots (1280×800) and an icon (already included).</li>
+      </ul>
+    </div>
+
+    <p class="footer">Job Application Tracker</p>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

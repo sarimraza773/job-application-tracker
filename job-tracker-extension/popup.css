@@ -1,17 +1,24 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  width: 360px;
+  width: 380px;
 }
 
-.wrap {
-  padding: 12px;
+.wrap { padding: 12px; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 h2 {
-  margin: 0 0 10px 0;
+  margin: 0;
   font-size: 18px;
 }
+
+.link { font-size: 12px; text-decoration: none; }
 
 .card {
   border: 1px solid #ddd;
@@ -20,11 +27,8 @@ h2 {
   margin-bottom: 10px;
 }
 
-.row {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-}
+.row { display: flex; gap: 8px; margin-top: 8px; }
+.row.between { justify-content: space-between; align-items: baseline; }
 
 input {
   flex: 1;
@@ -40,19 +44,15 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.9;
-}
+button:hover { opacity: 0.92; }
 
-.hint {
-  margin: 8px 0 0;
-  font-size: 12px;
-  color: #555;
-}
+.hint { margin: 8px 0 0; font-size: 12px; color: #555; }
 
 .filters {
   display: flex;
-  justify-content: flex-end;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 8px;
 }
 
@@ -75,27 +75,13 @@ select {
   gap: 10px;
 }
 
-.title {
-  font-weight: 700;
-  font-size: 13px;
-}
+.title { font-weight: 700; font-size: 13px; }
 
-.meta {
-  font-size: 12px;
-  color: #666;
-  margin-top: 4px;
-}
+.meta { font-size: 12px; color: #666; margin-top: 4px; }
 
-.actions {
-  display: flex;
-  gap: 6px;
-  margin-top: 8px;
-}
+.actions { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
 
-.small {
-  font-size: 12px;
-  padding: 6px 8px;
-}
+.small { font-size: 12px; padding: 6px 8px; }
 
 .badge {
   font-size: 11px;
@@ -103,8 +89,26 @@ select {
   border-radius: 999px;
   border: 1px solid #ddd;
   height: fit-content;
+  text-transform: uppercase;
 }
 
-.settings {
-  margin-top: 10px;
+.titleSm { font-weight: 700; font-size: 12px; }
+.metaSm { font-size: 11px; color: #666; }
+
+.edit {
+  display: none;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #e5e5e5;
+}
+
+textarea {
+  width: 100%;
+  min-height: 54px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 12px;
 }

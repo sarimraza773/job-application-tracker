@@ -1,24 +1,37 @@
 {
   "manifest_version": 3,
   "name": "Job Application Tracker",
-  "version": "1.0.0",
-  "description": "Track job applications and auto‑detect job title and company from application pages.",
+  "version": "1.2.0",
+  "description": "Track job applications, auto-detect title/company/location, set follow-ups, export CSV, and view weekly stats.",
   "permissions": [
     "storage",
     "tabs",
     "activeTab",
-    "scripting"
+    "alarms",
+    "notifications",
+    "downloads"
   ],
   "host_permissions": [
     "<all_urls>"
   ],
   "action": {
     "default_title": "Job Tracker",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   },
   "background": {
     "service_worker": "background.js"
   },
+  "options_page": "options.html",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
